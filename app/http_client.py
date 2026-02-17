@@ -27,15 +27,19 @@ class Client:
             headers = {}
 
         if api:
-            if not self.oauth2_token or (
-                isinstance(self.oauth2_token, OAuth2Token) and self.oauth2_token.expired
+            # Fix: check if token is not a calid object or if it expired
+            if (
+                not isinstance(self.oauth2_token, OAuth2Token)
+                or self.oauth2_token.expired
             ):
                 self.refresh_oauth2()
 
             if isinstance(self.oauth2_token, OAuth2Token):
                 headers["Authorization"] = self.oauth2_token.as_header()
 
-        req = requests.Request(method=method, url=f"https://example.com{path}", headers=headers)
+        req = requests.Request(
+            method=method, url=f"https://example.com{path}", headers=headers
+        )
         prepared = self.session.prepare_request(req)
 
         return {

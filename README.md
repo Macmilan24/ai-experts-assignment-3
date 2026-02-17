@@ -63,3 +63,40 @@ Create `EXPLANATION.md` (max 250 words) containing:
 ## Submission
 
 - Submit a public GitHub repository URL containing your solution to the Google form link provided.
+
+---
+
+## Project Setup & Usage
+
+### Running Tests Locally
+
+1. **Create and activate a virtual environment:**
+   ```bash
+   python -m venv venv
+   # On Windows:
+   venv\Scripts\activate
+   # On macOS/Linux:
+   source venv/bin/activate
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Run the test suite:**
+   ```bash
+   python -m pytest -v
+   ```
+
+### Running Tests with Docker
+
+1. **Build the Docker image:**
+   ```bash
+   docker build -t ai-experts-assignment .
+   ```
+
+2. **Run the tests inside the container:**
+   ```bash
+   docker run --rm ai-experts-assignment
+   ```
