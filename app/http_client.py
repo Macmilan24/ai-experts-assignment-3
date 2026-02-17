@@ -27,6 +27,10 @@ class Client:
             headers = {}
 
         if api:
+            # FIX: If the token is a dictionary, convert it to an OAuth2Token object first.
+            if isinstance(self.oauth2_token, dict):
+                self.oauth2_token = OAuth2Token(**self.oauth2_token)
+
             # Fix: check if token is not a calid object or if it expired
             if (
                 not isinstance(self.oauth2_token, OAuth2Token)

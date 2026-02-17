@@ -43,3 +43,17 @@ def test_api_request_refreshes_when_token_is_dict():
     resp = c.request("GET", "/me", api=True)
 
     assert resp["headers"].get("Authorization") == "Bearer fresh-token"
+
+
+def test_api_request_use_valid_dict_token():
+    c = Client()
+
+    c.oauth2_token = {
+        "access_token": "valid-dict-token",
+        "expires_at": int(time.time()) + 3600,
+    }
+
+    resp = c.request("GET", "/me", api=True)
+
+    # The original code would fail this and return no Authorization header
+    assert resp["headers"].get("Authorization") == "Bearer valid-dict-token"
